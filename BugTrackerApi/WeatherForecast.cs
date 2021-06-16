@@ -3,7 +3,7 @@ using System;
 namespace BugTrackerApi
 {
     public class WeatherForecast
-    {
+    { // a format to be shown on swagger
         public DateTime Date { get; set; }
 
         public int TemperatureC { get; set; }
