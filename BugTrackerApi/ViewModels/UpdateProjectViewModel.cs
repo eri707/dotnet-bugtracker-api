@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BugTrackerApi.Models
 {
-    // this model from customers are send to API (Guid and DateTime are not ne)
-    public class AddProjectViewModel
+    // this model from customers are send to API (Guid and DateTime are not necessary)
+    public class UpdateProjectViewModel
     {
-        [Required(AllowEmptyStrings = false), MaxLength(255)]
+        [MaxLength(255)]
         public string Name { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; }

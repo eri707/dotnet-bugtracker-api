@@ -34,6 +34,9 @@ namespace BugTrackerApi
             });
             // implement the dependency container 
             services.AddScoped<IProjectsRepository, ProjectsRepository>();
+            services.AddScoped<IBugsRepository, BugsRepository>();
+            //  a local in-memory cache(temporary) whose values are not serialized
+            // need 2 parameters(key, value) using Cache like Dictionary
             services.AddMemoryCache();
         }
 

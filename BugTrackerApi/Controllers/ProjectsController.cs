@@ -30,9 +30,9 @@ namespace BugTrackerApi.Controllers
             return _projectsRepository.GetProject(id);
         }
         [HttpPut("{id}")]
-        public async Task<Project> UpdateProject(int id)
+        public async Task<Project> UpdateProject(Guid id, UpdateProjectViewModel model)
         {
-            return _projectsRepository.UpdateProject(id);
+            return _projectsRepository.UpdateProject(id, model);
         }
         [HttpPost]
         public async Task<Project> AddProject(AddProjectViewModel model)

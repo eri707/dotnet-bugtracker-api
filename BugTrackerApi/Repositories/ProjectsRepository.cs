@@ -15,19 +15,19 @@ namespace BugTrackerApi.Repositories
         IEnumerable<Project> GetAllProjects();
         // get a project
         Project GetProject(Guid id);
-        Project UpdateProject(int id);
+        Project UpdateProject(Guid id, UpdateProjectViewModel model);
         void DeleteProject(Guid id);
     }
     public class ProjectsRepository : IProjectsRepository
     {
-        private IMemoryCache _cache;
+        private IMemoryCache _cache; // then be able to use this _cache belowe in methods.
 
-        public ProjectsRepository(IMemoryCache memory)
+        public ProjectsRepository(IMemoryCache memory) // injects an instance from DI container(see:ConfigureServices)
         {
             _cache = memory;
         }
-        public Project AddProject(AddProjectViewModel model)
-        {
+        public Project AddProject(AddProjectViewModel model) 
+        {   // Create a format for storing data into cache
             var project = new Project
             {
                 Name = model.Name,
@@ -35,29 +35,39 @@ namespace BugTrackerApi.Repositories
                 Id = Guid.NewGuid(),
                 CreatedOn = DateTime.Now
             };
-            // write how it can add a project
-            _cache.Set(project.Id, project);
+            _cache.Set(project.Id, project); // set key and value for storing data
             return project;
         }
 
-        public Project GetProject(Guid id)
+        public Project GetProject(Guid id) // write how it can get a project
         {
             return _cache.Get<Project>(id);
         }
 
-        public IEnumerable<Project> GetAllProjects()
+        public IEnumerable<Project> GetAllProjects() 
         {
-            // write how it can get a project
-            throw new NotImplementedException();
+            var keys = _cache.GetKeys<Guid>(); // get all Guid Id
+            var projects = new List<Project>(); // create a empty list of Project
+            foreach (var key in keys)
+            {
+                projects.Add(_cache.Get<Project>(key)); // add each project with the key into an empty list of Project
+            }
+            return projects; // return to customer
         }
 
-        public Project UpdateProject(int id)
-        {
-            throw new NotImplementedException();
+        public Project UpdateProject(Guid id, UpdateProjectViewModel model) 
+        {   // retrieve project model from cache
+            var updateProject = _cache.Get<Project>(id);
+            // update the properties
+            updateProject.Name = model.Name ?? updateProject.Name; // model.Name is null? then use updateProject.Name
+            updateProject.Description = model.Description ?? updateProject.Description;
+            // set the updated project in cache
+            _cache.Set(id, updateProject);
+            return updateProject; // return to customer
         } 
-        public void DeleteProject(Guid id)
+        public void DeleteProject(Guid id) 
         {
-             _cache.Remove(id);
+             _cache.Remove(id); // no return 
         }
 
         
