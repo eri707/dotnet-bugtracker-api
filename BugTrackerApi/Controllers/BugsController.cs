@@ -24,10 +24,10 @@ namespace BugTrackerApi.Controllers
         {
             return _bugsRepository.GetBug(id);
         }
-        [HttpGet]
-        public async Task<IEnumerable<Bug>> GetAllBugs() 
-        {
-            return _bugsRepository.GetAllBugs();
+        [HttpGet("project/{projectId}")]
+        public async Task<IEnumerable<Bug>> GetAllBugs(Guid projectId) 
+        {   // get all bugs from one project with porojectId
+            return _bugsRepository.GetAllBugs(projectId);
         }
         [HttpPut("{id}")]
         public async Task<Bug> UpdateBug(Guid id, UpdateBugViewModel model)

@@ -10,7 +10,8 @@ namespace BugTrackerApi.Models
     {
         [MaxLength(255)]
         public string Title { get; set; }
-        public Enum Priority { get; set; }
+        // set that this is nullable*(except string) in norder to use ?? statement
+        public Priority? Priority { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; }
         public string ReproSteps { get; set; }
@@ -18,7 +19,5 @@ namespace BugTrackerApi.Models
         public string ActualResults { get; set; }
         [MaxLength(1000)]
         public string ExpectedResults { get; set; }
-        public Project Id { get; set; }
-
     }
 }

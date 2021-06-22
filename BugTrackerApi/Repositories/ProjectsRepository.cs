@@ -35,21 +35,22 @@ namespace BugTrackerApi.Repositories
                 Id = Guid.NewGuid(),
                 CreatedOn = DateTime.Now
             };
-            _cache.Set(project.Id, project); // set key and value for storing data
+            _cache.Set($"project_{Guid.NewGuid()}", project); // set key and value for storing data
             return project;
         }
 
         public Project GetProject(Guid id) // write how it can get a project
         {
-            return _cache.Get<Project>(id);
+            return _cache.Get<Project>($"project_{id}");
         }
 
         public IEnumerable<Project> GetAllProjects() 
         {
-            var keys = _cache.GetKeys<Guid>(); // get all Guid Id
+            var keys = _cache.GetKeys<string>(); // get all Guid Id
             var projects = new List<Project>(); // create a empty list of Project
             foreach (var key in keys)
             {
+                if (!key.StartsWith("project_")) continue;
                 projects.Add(_cache.Get<Project>(key)); // add each project with the key into an empty list of Project
             }
             return projects; // return to customer
@@ -57,17 +58,17 @@ namespace BugTrackerApi.Repositories
 
         public Project UpdateProject(Guid id, UpdateProjectViewModel model) 
         {   // retrieve project model from cache
-            var updateProject = _cache.Get<Project>(id);
+            var updateProject = _cache.Get<Project>($"project_{id}");
             // update the properties
             updateProject.Name = model.Name ?? updateProject.Name; // model.Name is null? then use updateProject.Name
             updateProject.Description = model.Description ?? updateProject.Description;
             // set the updated project in cache
-            _cache.Set(id, updateProject);
+            _cache.Set($"project_{id}", updateProject);
             return updateProject; // return to customer
         } 
-        public void DeleteProject(Guid id) 
+        public void DeleteProject(Guid id) // why is not this project_id? 
         {
-             _cache.Remove(id); // no return 
+             _cache.Remove($"project_{id}"); // no return 
         }
 
         

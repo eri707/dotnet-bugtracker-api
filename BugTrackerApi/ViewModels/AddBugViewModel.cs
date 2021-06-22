@@ -9,8 +9,9 @@ namespace BugTrackerApi.Models
     public class AddBugViewModel
     {
         [Required(AllowEmptyStrings = false), MaxLength(255)]
+        public Guid ProjectId { get; set; }
         public string Title { get; set; }
-        public Enum Priority { get; set; }
+        public Priority Priority { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; }
         public string ReproSteps { get; set; }
@@ -18,7 +19,7 @@ namespace BugTrackerApi.Models
         public string ActualResults { get; set; }
         [MaxLength(1000)]
         public string ExpectedResults { get; set; }
-        public Project Id { get; set; }
+        
 
     }
 }
