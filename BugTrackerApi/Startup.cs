@@ -33,8 +33,10 @@ namespace BugTrackerApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BugTrackerApi", Version = "v1" });
             });
             // implement the dependency container 
-            services.AddScoped<IProjectsRepository, ProjectsRepository>();
-            services.AddScoped<IBugsRepository, BugsRepository>();
+            // services.AddScoped<IProjectsRepository, ProjectsRepository>(); // for IMemory chache
+            services.AddScoped<IProjectsRepository, SQLProjectsRepository>(); // for SQLdatabese
+            // services.AddScoped<IBugsRepository, BugsRepository>(); // for IMemory chache
+            services.AddScoped<IBugsRepository, SQLBugsRepository>(); // for SQLdatabese
             //  a local in-memory cache(temporary) whose values are not serialized
             // need 2 parameters(key, value) using Cache like Dictionary
             services.AddMemoryCache();

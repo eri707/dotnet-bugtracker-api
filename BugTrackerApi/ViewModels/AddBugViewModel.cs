@@ -8,7 +8,7 @@ namespace BugTrackerApi.Models
 {
     public class AddBugViewModel
     {
-        [Required(AllowEmptyStrings = false), MaxLength(255)]
+        //[Required(AllowEmptyStrings = false), MaxLength(255)]
         public Guid ProjectId { get; set; }
         public string Title { get; set; }
         public Priority Priority { get; set; }
