@@ -452,3 +452,4 @@ $RECYCLE.BIN/
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+/BugTrackerApi/Properties/ServiceDependencies/bug-tracker - Web Deploy/profile.arm.json
