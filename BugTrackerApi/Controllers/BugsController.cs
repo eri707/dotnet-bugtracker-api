@@ -14,10 +14,12 @@ namespace BugTrackerApi.Controllers
     public class BugsController : ControllerBase
     {
         private IBugsRepository _bugsRepository;
+        private IProjectsRepository _projectRepository;
 
-        public BugsController(IBugsRepository bugsRepository)
+        public BugsController(IBugsRepository bugsRepository, IProjectsRepository projectsRepository)
         {
             _bugsRepository = bugsRepository;
+            _projectRepository = projectsRepository;
         }
         [HttpGet("{id}")]
         public async Task<Bug> GetBug(Guid id)
@@ -35,8 +37,11 @@ namespace BugTrackerApi.Controllers
             return _bugsRepository.UpdateBug(id, model);
         }
         [HttpPost]
-        public async Task<Bug> AddBug(AddBugViewModel model)
-        {
+        // ActionResults can have both result and bug
+        public async Task<ActionResult<Bug>> AddBug(AddBugViewModel model)
+        {   // This is an error handling which can make sure if the id exist when user put projectId.
+            var project = _projectRepository.GetProject(model.ProjectId); // specify the project with the projectId put by user
+            if (project == null) return new BadRequestObjectResult("ProjectId doesn't exist."); // if the project exists? then add bug. No? then return resutl.
             return _bugsRepository.AddBug(model);
         }
         [HttpDelete("{id}")]
