@@ -28,18 +28,19 @@ namespace BugTrackerApi.Repositories
         }
         public Project AddProject(AddProjectViewModel model) 
         {   // Create a format for storing data into cache
+            var id = Guid.NewGuid();
             var project = new Project
             {
                 Name = model.Name,
                 Description = model.Description,
-                Id = Guid.NewGuid(),
+                Id = id,
                 CreatedOn = DateTime.Now
             };
-            _cache.Set($"project_{Guid.NewGuid()}", project); // set key and value for storing data
+            _cache.Set($"project_{id}", project); // set key and value for storing data
             return project;
         }
 
-        public Project GetProject(Guid id) // write how it can get a project
+        public Project GetProject(Guid id) 
         {
             return _cache.Get<Project>($"project_{id}");
         }
@@ -66,7 +67,7 @@ namespace BugTrackerApi.Repositories
             _cache.Set($"project_{id}", updateProject);
             return updateProject; // return to customer
         } 
-        public void DeleteProject(Guid id) // why is not this project_id? 
+        public void DeleteProject(Guid id) 
         {
              _cache.Remove($"project_{id}"); // no return 
         }
