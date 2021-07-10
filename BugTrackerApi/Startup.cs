@@ -40,6 +40,8 @@ namespace BugTrackerApi
             //  a local in-memory cache(temporary) whose values are not serialized
             // need 2 parameters(key, value) using Cache like Dictionary
             services.AddMemoryCache();
+            // for using Razor
+            services.AddRazorPages();
         }
 
         // Creates middlewares in order
@@ -54,12 +56,16 @@ namespace BugTrackerApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BugTrackerApi v1"));
             }
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
             app.UseRouting();
             app.UseAuthorization();
-            // conects all controllers to route
+            
             app.UseEndpoints(endpoints =>
-            {
+            {   // connects all controllers to route
                 endpoints.MapControllers();
+                // connects RazorPages to route
+                endpoints.MapRazorPages();
             });
         }
     }

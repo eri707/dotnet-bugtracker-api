@@ -62,7 +62,16 @@ namespace BugTrackerApi.Repositories
         {
             using (var db = new SqlConnection(_connString))
             {
-                var result = db.Execute($"UPDATE Bugs SET Title = @Title, Priority = @Priority, Description = @Description, ReproSteps = @ReproSteps, ActualResult = @ActualResult, ExpectedResults = @ExpectedResults WHERE Id = '{ id }'", model); // model??
+                var result = db.Execute(@$"
+                        UPDATE Bugs 
+                        SET 
+                            Title = CASE WHEN @Title IS NULL THEN Title ELSE @Title END, 
+                            Priority = CASE WHEN @Priority IS NULL THEN Priority ELSE @Priority END, 
+                            Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END, 
+                            ReproSteps = CASE WHEN @ReproSteps IS NULL THEN ReproSteps ELSE @ReproSteps END, 
+                            ActualResults = CASE WHEN @ActualResults IS NULL THEN ActualResults ELSE @ActualResults END, 
+                            ExpectedResults = CASE WHEN @ExpectedResults IS NULL THEN ExpectedResults ELSE @ExpectedResults END 
+                        WHERE Id = '{ id }'", model); // model??
                 if (result > 0)
                 {
                     return GetBug(id);
