@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BugTrackerApi.Controllers
 {
     [ApiController]
-    [Route("projects")] // /projects
+    [Route("api/projects")] // /projects
     public class ProjectsController : ControllerBase
     {   // This block means to be able to use IProjectsRepository in this class Controller to use data from _projectsRepository
         private IProjectsRepository _projectsRepository; // _ means private variable

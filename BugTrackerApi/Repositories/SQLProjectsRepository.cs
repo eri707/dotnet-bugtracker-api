@@ -68,7 +68,11 @@ namespace BugTrackerApi.Repositories
         {
             using (var db = new SqlConnection(_connString))
             {
-                var result = db.Execute($"UPDATE Projects SET Name = @Name, Description = @Description WHERE id = '{id}'", model);
+                var result = db.Execute(@$"
+                    UPDATE Projects 
+                    SET Name = CASE WHEN @Name IS NULL THEN Name ELSE @Name END, -- case statement with SQL 
+                        Description = CASE WHEN @Description IS NULL THEN Description ELSE @Description END 
+                    WHERE id = '{id}'", model);
                 if (result > 0)
                 {
                     return GetProject(id);

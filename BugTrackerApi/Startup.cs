@@ -32,7 +32,6 @@ namespace BugTrackerApi
             { // This is the info on the swagger
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BugTrackerApi", Version = "v1" });
             });
-            // implement the dependency container 
             // services.AddScoped<IProjectsRepository, ProjectsRepository>(); // for IMemory chache
             services.AddScoped<IProjectsRepository, SQLProjectsRepository>(); // for SQLdatabese
             // services.AddScoped<IBugsRepository, BugsRepository>(); // for IMemory chache
@@ -40,6 +39,8 @@ namespace BugTrackerApi
             //  a local in-memory cache(temporary) whose values are not serialized
             // need 2 parameters(key, value) using Cache like Dictionary
             services.AddMemoryCache();
+            // for using Razor
+            services.AddRazorPages();
         }
 
         // Creates middlewares in order
@@ -54,12 +55,16 @@ namespace BugTrackerApi
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BugTrackerApi v1"));
             }
             app.UseHttpsRedirection();
+            app.UseStaticFiles();
+
             app.UseRouting();
             app.UseAuthorization();
-            // conects all controllers to route
+            
             app.UseEndpoints(endpoints =>
-            {
+            {   // connects all controllers to route
                 endpoints.MapControllers();
+                // connects RazorPages to route
+                endpoints.MapRazorPages();
             });
         }
     }

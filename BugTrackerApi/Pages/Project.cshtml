@@ -1,0 +1,55 @@
+﻿@page "/projects/{id}" 
+    @* This is route to projects *@ 
+@model BugTrackerApi.Pages.ProjectModel
+@{
+}
+<div class="container">
+    <h2 class="title mt-3">
+        @Model.Project?.Name
+    </h2>
+
+    <p>@Model.Project?.Description</p>
+    <h4 class="is-size-4 mt-4">Bugs</h4>
+    @foreach (var bug in Model.Bugs)
+    {
+        <div class="card p-4 mb-2 is-flex-direction-row" x-data="{ open: false }">
+            <div>
+                <a class="is-size-5" @@click="open = ! open">@bug.Title</a>
+            </div>
+            <div>
+                <div x-show="open" @@click.outside="open = false">
+                    <p><strong>Created On:</strong> @bug.CreatedOn</p>
+                    <p class="mt-4"><strong>Description:</strong> </p>
+                    <p class="mb-4">@bug.Description</p>
+                    <p><strong>Priority:</strong> @bug.Priority</p>
+                    <p><strong>Repro Steps:</strong> @bug.ReproSteps</p>
+                    <table class="table is-bordered  mt-4 is-fullwidth">
+                        <thead>
+                            <tr>
+                                <th>ExpectedResults</th>
+                                <th>ActualResults</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>@bug.ExpectedResults</td>
+                                <td>@bug.ActualResults</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    <!--
+    <div x-data="{ count: 0}">
+        <button x-on:click="count++">Increment</button>
+
+        <span x-text="count"></span>
+
+    </div>
+    -->
+
+</div>
