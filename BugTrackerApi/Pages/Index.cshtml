@@ -1,18 +1,27 @@
 ﻿@page
-@model BugTrackerApi.Pages.IndexModel
+@model IndexModel
 
-<div class="container">
+<div class="container"> <!--This is HTML file-->
 
-    <h1 class="title mt-3">Projects</h1>
+    <header>
+        <h1 class="title mt-3">Projects</h1>
+        <button class="button">Add project</button>
+    </header>
+    <!--atmark means to start C# code -->
     <h5 class="subtitle">There are @Model.AllProjects?.Count() projects in the database.</h5>
+   
 
     <table class="table is-fullwidth is-striped">
         <tbody>
             @foreach (var project in Model.AllProjects)
             {
                 <tr>
-                    <td>
+                    <td> <!--This is the link to ??what is project.Id -->
                         <a href="/projects/@project.Id">@project.Name</a>
+                        <button class="button">Update</button>
+                        <form method="POST">
+                            <input type="submit" class="button" asp-page-handler="Delete" value="Delete" asp-route-id="@project.Id" />
+                        </form>
                     </td>
                 </tr>
             }

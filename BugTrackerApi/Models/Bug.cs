@@ -13,7 +13,6 @@ namespace BugTrackerApi.Models
         public DateTime CreatedOn { get; set; }
         public string Title { get; set; }
         // set that this is nullable*(except string) in order to use ?? statement
-        // this is Enum type ??
         public Priority? Priority { get; set; }
         public string Description { get; set; }
        // Reproduce steps for bugs

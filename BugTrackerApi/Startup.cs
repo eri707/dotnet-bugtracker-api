@@ -32,6 +32,7 @@ namespace BugTrackerApi
             { // This is the info on the swagger
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BugTrackerApi", Version = "v1" });
             });
+            
             // services.AddScoped<IProjectsRepository, ProjectsRepository>(); // for IMemory chache
             services.AddScoped<IProjectsRepository, SQLProjectsRepository>(); // for SQLdatabese
             // services.AddScoped<IBugsRepository, BugsRepository>(); // for IMemory chache
