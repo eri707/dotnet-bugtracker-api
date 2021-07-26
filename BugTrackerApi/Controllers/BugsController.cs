@@ -12,8 +12,8 @@ namespace BugTrackerApi.Controllers
     [Route("api/bugs")] // /bugs
 
     public class BugsController : ControllerBase
-    {
-        private IBugsRepository _bugsRepository;
+    { 
+        private IBugsRepository _bugsRepository; 
         private IProjectsRepository _projectRepository;
 
         public BugsController(IBugsRepository bugsRepository, IProjectsRepository projectsRepository)
@@ -26,20 +26,22 @@ namespace BugTrackerApi.Controllers
         {
             return _bugsRepository.GetBug(id);
         }
+
         [HttpGet("project/{projectId}")]
         public async Task<IEnumerable<Bug>> GetAllBugs(Guid projectId) 
         {   // get all bugs from one project with porojectId
             return _bugsRepository.GetAllBugs(projectId);
         }
+
         [HttpPut("{id}")]
-        public async Task<Bug> UpdateBug(Guid id, UpdateBugViewModel model)
+        public async Task<Bug> UpdateBug(Guid id, UpdateBugViewModel model) // Update with UpddateProjectViewModel
         {
             return _bugsRepository.UpdateBug(id, model);
         }
+
         [HttpPost]
-        // ActionResults can have both result and bug
-        public async Task<ActionResult<Bug>> AddBug(AddBugViewModel model)
-        {   // This is an error handling which can make sure if the id exist when user put projectId.
+        public async Task<ActionResult<Bug>> AddBug(AddBugViewModel model) // Add with AddProjectViewModel
+        {   // This is an error handling which can make sure if the Projectid exist when user put projectId.
             var project = _projectRepository.GetProject(model.ProjectId); // specify the project with the projectId put by user
             if (project == null) return new BadRequestObjectResult("ProjectId doesn't exist."); // if the project exists? then add bug. No? then return resutl.
             return _bugsRepository.AddBug(model);
@@ -49,7 +51,6 @@ namespace BugTrackerApi.Controllers
         {
             _bugsRepository.DeleteBug(id);
             return Ok();
-        
         }
     }
 }

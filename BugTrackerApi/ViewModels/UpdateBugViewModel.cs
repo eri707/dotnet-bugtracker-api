@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace BugTrackerApi.Models
 {
-    public class UpdateBugViewModel
+    public class UpdateBugViewModel // this model is for user input when updating
     {
         [MaxLength(255)]
         public string Title { get; set; }
-        // set that this is nullable*(except string) in norder to use ?? statement
         public Priority? Priority { get; set; }
         [MaxLength(1000)]
         public string Description { get; set; }

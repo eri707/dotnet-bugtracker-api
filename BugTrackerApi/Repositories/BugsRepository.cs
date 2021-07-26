@@ -9,22 +9,19 @@ namespace BugTrackerApi.Repositories
 {
     public interface IBugsRepository
     {
-        Bug AddBug(AddBugViewModel model);
+        Bug AddBug(AddBugViewModel model); // adding with AddBugViewModel
         Bug GetBug(Guid id);
         IEnumerable<Bug> GetAllBugs(Guid projectId);
-        Bug UpdateBug(Guid id, UpdateBugViewModel model);
+        Bug UpdateBug(Guid id, UpdateBugViewModel model); // updating with UpdateBugViewModel
         void DeleteBug(Guid id);
     }
-
     public class BugsRepository : IBugsRepository
     {
         private IMemoryCache _cache;
-
         public BugsRepository(IMemoryCache memory)
         {
             _cache = memory;
         }
-        
         public Bug AddBug(AddBugViewModel model)
         {
             var bug = new Bug
@@ -42,32 +39,28 @@ namespace BugTrackerApi.Repositories
             _cache.Set($"bug_{bug.Id}", bug);
             return bug;
         }
-
         public void DeleteBug(Guid id)
         {
             _cache.Remove($"bug_{id}");
         }
-
         public IEnumerable<Bug> GetAllBugs(Guid projectId)
-        {   // get all id's with string
-            var keys = _cache.GetKeys<string>();
+        {   
+            var keys = _cache.GetKeys<string>(); //get all "project_{id}" and "bug_{id}"
             var bugs = new List<Bug>();
             foreach (var key in keys)
-            {   // if not start with "bug_", then skip
-                if (!key.StartsWith("bug_")) continue;
+            {   
+                if (!key.StartsWith("bug_")) continue; // if not start with "bug_", then skip
                 bugs.Add(_cache.Get<Bug>(key));
-            } // select the bugs which are correspond with projectId
-            return bugs.Where(p => p.ProjectId == projectId);
+            } // select the bug which is correspond with projectId put by user
+            return bugs.Where(p => p.ProjectId == projectId); //lambda expression to query data from database
         }
         public Bug GetBug(Guid id)
         {
             return _cache.Get<Bug>($"bug_{id}");
         }
-
         public Bug UpdateBug(Guid id, UpdateBugViewModel model)
-        {   // get the bug with bug_{id}
+        {   
             var updateBug = _cache.Get<Bug>($"bug_{id}");
-            // update the values
             updateBug.Title = model.Title ?? updateBug.Title;
             updateBug.Priority = model.Priority ?? updateBug.Priority;
             updateBug.Description = model.Description ?? updateBug.Description;

@@ -16,20 +16,20 @@ namespace BugTrackerApi.Pages // Get data from projectRepository through browser
         // this field must be public in ordet to use it in Index.cshtml
         public IEnumerable<Project> AllProjects; // public variable convention capital case
       
-        public IndexModel(IProjectsRepository projectsRepository) // DI from startup
+        public IndexModel(IProjectsRepository projectsRepository) 
         {
             _projectsRepository = projectsRepository;
-            
         }
 
-        public void OnGet() // get projects from projectRepository why void??
+        public void OnGet() // no return 
         {
             AllProjects = _projectsRepository.GetAllProjects();
         }
         
-        public void OnPostDelete(Guid id)
+        public void OnPostDelete(Guid id) // no return 
         {
             _projectsRepository.DeleteProject(id);
+            // what does this mean??
             AllProjects = _projectsRepository.GetAllProjects();
         }
     }

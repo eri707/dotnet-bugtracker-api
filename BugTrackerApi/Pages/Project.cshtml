@@ -1,8 +1,7 @@
-﻿@page "/projects/{id}" 
-    @* This is route to projects *@ 
-@model BugTrackerApi.Pages.ProjectModel
-@{
-}
+﻿@page "/projects/{id}"
+@model BugTrackerApi.Pages.ProjectModel 
+
+
 <div class="container">
     <header class="is-flex is-justify-content-space-between is-align-items-center">
         <h1 class="title mt-3">@Model.Project?.Name</h1>
@@ -10,12 +9,25 @@
     </header>
 
     <p>@Model.Project?.Description</p>
-    <h4 class="is-size-4 mt-4">Bugs</h4>
+    <div class="is-flex is-justify-content-space-between">
+        <h4 class="is-size-4 mt-4">Bugs</h4>
+        <a class="button" href="/AddBug">Add bug</a>  <!--why AddBug not addbug??-->
+    </div>
+
     @foreach (var bug in Model.Bugs)
     {
         <div class="card p-4 mb-2 is-flex-direction-row" x-data="{ open: false }">
-            <div>
+            <div class="is-flex is-justify-content-space-between">
                 <a class="is-size-5" @@click="open = ! open">@bug.Title</a>
+                <div  class="is-flex">
+                    <form method="POST"> <!--pretend like Edit http method-->
+                        <input type="submit" class="button" asp-page-handler="Edit" value="Edit" asp-route-id="Bug.Id" />
+                    </form>
+                    <form method="POST"> <!--pretend like delete http method-->
+                        <input type="submit" class="button ml-3" asp-page-handler="Delete" value="Delete" asp-route-id="Bug.Id" />
+                    </form>
+                </div>
+                
             </div>
             <div>
                 <div x-show="open" @@click.outside="open = false">

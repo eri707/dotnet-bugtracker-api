@@ -1,17 +1,14 @@
 ﻿@page
 @model BugTrackerApi.Pages.AddProjectModel
-@{
-}
 
 <div class="container mt-3">
     <h1 class="title">Add Project</h1>
-    <!--This is a tag helper-->
     <div asp-validation-summary="All"></div>
-    <form method="POST">
+    <form method="POST"> <!--pritend post http method-->
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Text input" asp-for="Project.Name">
+                <input class="input" type="text" placeholder="Text input" asp-for="Project.Name"> <!-- asp-for??-->
             </div>
         </div>
         <div class="field">

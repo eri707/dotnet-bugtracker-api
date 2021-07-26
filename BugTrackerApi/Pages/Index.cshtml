@@ -2,16 +2,12 @@
 @model IndexModel
 
 <div class="container">
-    <!--This is HTML file-->
-
     <header class="is-flex is-justify-content-space-between is-align-items-center">
         <h1 class="title mt-3">Projects</h1>
         <a class="button" href="/AddProject">Add project</a>
     </header>
 
-    <!--atmark means to start C# code -->
     <h5 class="subtitle">There are @Model.AllProjects?.Count() projects in the database.</h5>
-
 
     <table class="table is-fullwidth is-striped">
         <tbody>
@@ -20,10 +16,11 @@
                 <tr>
                     <td>
                         <!--This is the link to the page of project.Id -->
+                        <!--can i change the route name whatever i want??-->
                         <a href="/projects/@project.Id">@project.Name</a>
                     </td>
                     <td style="width:100px">
-                        <form method="POST">
+                        <form method="POST"> <!--pretend like delete http method-->
                             <input type="submit" class="button" asp-page-handler="Delete" value="Delete" asp-route-id="@project.Id" />
                         </form>
                     </td>

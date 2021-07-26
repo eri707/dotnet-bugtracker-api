@@ -14,20 +14,20 @@ namespace BugTrackerApi.Repositories
         private IConfiguration _config;
         private string _connString;
 
-        public SQLProjectsRepository(IConfiguration configuration) 
+        public SQLProjectsRepository(IConfiguration configuration) // injects an instance from CreateDefaultBuilder(Program.cs)
         {
             _config = configuration;
-            _connString = configuration.GetConnectionString("Local"); 
+            _connString = configuration.GetConnectionString("Local"); // from appsettings.json
         }
         public  Project AddProject(AddProjectViewModel model)
         {
             var id = Guid.NewGuid(); 
-            using (var db = new SqlConnection(_connString)) // connects API to database
-            {  // write SQL here
+            using (var db = new SqlConnection(_connString)) // use using statement since accessing databese is unmanaged resource(avoid memory leak)
+            {  // return type int(must be 1 row)
                 var result = db.Execute("INSERT INTO Projects (Id, CreatedOn, Name, Description) VALUES (@Id, @CreatedOn, @Name, @Description)", new { Id = id, CreatedOn = DateTime.UtcNow, Name = model.Name, Description = model.Description }); // this is new anonymous object
                 if (result > 0)
                 {
-                    return GetProject(id);
+                    return GetProject(id); // return browser to represent the project which has just added
                 }
                 return null;
             }

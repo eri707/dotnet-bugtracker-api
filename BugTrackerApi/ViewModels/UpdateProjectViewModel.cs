@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BugTrackerApi.Models
 {
-    // this model from customers are send to API (Guid and DateTime are not necessary)
-    public class UpdateProjectViewModel
+    public class UpdateProjectViewModel // this model is for user input when updating 
     {
         [MaxLength(255)]
         public string Name { get; set; }

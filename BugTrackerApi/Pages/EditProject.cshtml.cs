@@ -12,15 +12,15 @@ namespace BugTrackerApi.Pages
     public class EditProjectModel : PageModel
     {
         private IProjectsRepository _projectsRepository;
-        [BindProperty]
+        [BindProperty] // the process that takes values from HTTP requests and maps them to handler method parameters or PageModel properties.
         public UpdateProjectViewModel Project { get; set; }
         public Guid ProjectId;
 
-        public EditProjectModel(IProjectsRepository projectsRepository) // DI from startup
+        public EditProjectModel(IProjectsRepository projectsRepository) 
         {
             _projectsRepository = projectsRepository;
         }
-        public void OnGet(Guid id)
+        public void OnGet(Guid id) // get existing project ??
         {
             ProjectId = id;
             var existingProject = _projectsRepository.GetProject(id);
@@ -29,7 +29,7 @@ namespace BugTrackerApi.Pages
             Project.Description = existingProject.Description;
         }
         
-        public ActionResult OnPost(Guid id)
+        public ActionResult OnPost(Guid id) // add the editted projoct
         {
             if (!ModelState.IsValid)
             {

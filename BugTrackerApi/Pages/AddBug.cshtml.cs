@@ -9,24 +9,24 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace BugTrackerApi.Pages
 {
-    public class AddProjectModel : PageModel
+    public class AddBugModel : PageModel
     {
-        private IProjectsRepository _projectsRepository;
-        [BindProperty] // the process that takes values from HTTP requests and maps them to handler method parameters or PageModel properties
-        public AddProjectViewModel Project { get; set; } // ??
-
-        public AddProjectModel(IProjectsRepository projectsRepository) 
-        {
-            _projectsRepository = projectsRepository;
-        }
+        private IBugsRepository _bugsRepository;
+        [BindProperty]
+        public AddBugViewModel Bug { get; set; }
         
+        public AddBugModel(IBugsRepository bugsRepository)
+        {
+            _bugsRepository = bugsRepository;
+        }
+
         public ActionResult OnPost() // where should it be used??
         { // what is ModelState??
             if (!ModelState.IsValid)
             {
                 return Page(); //??
             }
-            _projectsRepository.AddProject(Project); // what is this Project??
+            _bugsRepository.AddBug(Bug); // what is this Project??
             return RedirectToPage("/Index"); // why Index??
         }
     }

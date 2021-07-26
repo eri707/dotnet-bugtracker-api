@@ -23,7 +23,7 @@ namespace BugTrackerApi.Pages
             _bugsRepository = bugsRepository;
         }
         // This runs second
-        public void OnGet(Guid id)
+        public void OnGet(Guid id) // get one project
         {
             Project = _projectsRepository.GetProject(id);
             Bugs = _bugsRepository.GetAllBugs(id);

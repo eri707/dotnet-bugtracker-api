@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BugTrackerApi.Models
 {
-    public class AddBugViewModel
+    public class AddBugViewModel // this model is for user input when adding 
     {
         //[Required(AllowEmptyStrings = false), MaxLength(255)]
         public Guid ProjectId { get; set; }

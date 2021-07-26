@@ -15,9 +15,10 @@ using System.Threading.Tasks;
 
 namespace BugTrackerApi
 {
-    public class Startup
-    {   // This block means to be able to use IConfiguration in class Startup from from CreateDefaultBuilder(Program.cs)
+    public class Startup // The Startup class configures services and the app's request pipeline
+    {   // property has a hidden field so you can use property name as the filed
         public IConfiguration Configuration { get; }
+        // Only the following service types can be injected into the Startup constructor when using the Generic Host (IHostBuilder): IWebHostEnvironment IHostEnvironment IConfiguration
         public Startup(IConfiguration configuration) // injects an instance from CreateDefaultBuilder(Program.cs)
         {
             Configuration = configuration;
@@ -25,7 +26,7 @@ namespace BugTrackerApi
 
         // means to add services into dependency injection container via ConfigureServices
         // all classes in this container are instanciated then can be utilized anywhere
-        public void ConfigureServices(IServiceCollection services)
+        public void ConfigureServices(IServiceCollection services) // IserviceCollection is DI container
         {
             services.AddControllers(); // look for API controller and instanciates all of classes
             services.AddSwaggerGen(c =>
@@ -33,21 +34,20 @@ namespace BugTrackerApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BugTrackerApi", Version = "v1" });
             });
             
-            // services.AddScoped<IProjectsRepository, ProjectsRepository>(); // for IMemory chache
-            services.AddScoped<IProjectsRepository, SQLProjectsRepository>(); // for SQLdatabese
-            // services.AddScoped<IBugsRepository, BugsRepository>(); // for IMemory chache
-            services.AddScoped<IBugsRepository, SQLBugsRepository>(); // for SQLdatabese
-            //  a local in-memory cache(temporary) whose values are not serialized
-            // need 2 parameters(key, value) using Cache like Dictionary
+            // for IMemory chache
+            // services.AddScoped<IProjectsRepository, ProjectsRepository>(); 
+            // services.AddScoped<IBugsRepository, BugsRepository>(); 
+            // for SQLdatabese
+            services.AddScoped<IProjectsRepository, SQLProjectsRepository>(); 
+            services.AddScoped<IBugsRepository, SQLBugsRepository>();
+            
+            // a local in-memory cache(temporary) whose values are not serialized and needs 2 parameters(key, value) using Cache like Dictionary
             services.AddMemoryCache();
             // for using Razor
             services.AddRazorPages();
         }
-
-        // Creates middlewares in order
-        // IApplicationBuilder provides the mechanisms to configure an app's request pipeline
-        // IWebHostEnvironment provides information about the web hosting emvironment an app is running in 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
+        
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) // Creates middlewares in order
         { 
             if (env.IsDevelopment()) // if the app running in the development mode(in environmentVariables)
             {  // enable to use swagger's suport
