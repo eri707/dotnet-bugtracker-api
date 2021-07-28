@@ -3,7 +3,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace BugTrackerApi
 {
-    public class Program // configures the app infrastructure(Web host, logging, DI container, IIS integration etc)       
+    public class Program // configures the app infrastructure(Web host, logging, DI container etc)       
     {
         public static void Main(string[] args)
         {

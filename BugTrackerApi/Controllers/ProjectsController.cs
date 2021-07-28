@@ -43,10 +43,10 @@ namespace BugTrackerApi.Controllers
         }
 
         [HttpDelete]
-        public async Task<ActionResult> DeleteProject(Guid id) //why use ActionResult type ??
+        public async Task<ActionResult> DeleteProject(Guid id) 
         {
             _projectsRepository.DeleteProject(id);
-            return Ok(); // return to where??
+            return Ok(); // return to the user(browser)
         }
     }
 }

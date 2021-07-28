@@ -25,9 +25,16 @@ namespace BugTrackerApi.Pages
         // This runs second
         public void OnGet(Guid id) // get one project
         {
-            Project = _projectsRepository.GetProject(id);
+            Project = _projectsRepository.GetProject(id); // these ids are same??
             Bugs = _bugsRepository.GetAllBugs(id);
         }
-       
+        public void OnPostDelete(Guid id)
+        {
+            var bug = _bugsRepository.GetBug(id);
+            _bugsRepository.DeleteBug(id);
+            // you need to get new all bugs after deleting
+            Bugs = _bugsRepository.GetAllBugs(bug.ProjectId);
+        }
+
     }
 }

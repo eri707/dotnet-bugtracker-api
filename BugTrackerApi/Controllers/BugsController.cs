@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace BugTrackerApi.Controllers
 {
     [ApiController]
-    [Route("api/bugs")] // /bugs
+    [Route("api/bugs")] // /bugs for endpoint routing
 
     public class BugsController : ControllerBase
     { 

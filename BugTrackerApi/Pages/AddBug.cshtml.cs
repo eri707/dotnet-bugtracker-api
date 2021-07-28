@@ -14,20 +14,25 @@ namespace BugTrackerApi.Pages
         private IBugsRepository _bugsRepository;
         [BindProperty]
         public AddBugViewModel Bug { get; set; }
-        
+        public Guid ProjectId { get; set; }
+
         public AddBugModel(IBugsRepository bugsRepository)
         {
             _bugsRepository = bugsRepository;
         }
 
-        public ActionResult OnPost() // where should it be used??
-        { // what is ModelState??
+        public ActionResult OnPost() 
+        { 
             if (!ModelState.IsValid)
             {
-                return Page(); //??
+                return Page(); 
             }
-            _bugsRepository.AddBug(Bug); // what is this Project??
-            return RedirectToPage("/Index"); // why Index??
+            _bugsRepository.AddBug(Bug); 
+            return RedirectToPage("./Project", new { id = Bug.ProjectId.ToString() }); 
+        }
+        public void OnGet([FromQuery]Guid projectId) // retrieve query parameters 
+        {
+            ProjectId = projectId;
         }
     }
 }

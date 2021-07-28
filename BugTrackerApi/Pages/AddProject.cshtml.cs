@@ -21,13 +21,13 @@ namespace BugTrackerApi.Pages
         }
         
         public ActionResult OnPost() // where should it be used??
-        { // what is ModelState??
-            if (!ModelState.IsValid)
+        { 
+            if (!ModelState.IsValid) // if the model which is recieved from the user is valid 
             {
-                return Page(); //??
+                return Page(); //show view page
             }
             _projectsRepository.AddProject(Project); // what is this Project??
-            return RedirectToPage("/Index"); // why Index??
+            return RedirectToPage("/Index"); // the page will be shown up after adding project
         }
     }
 }

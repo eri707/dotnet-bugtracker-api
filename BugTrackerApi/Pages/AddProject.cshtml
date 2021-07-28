@@ -4,11 +4,12 @@
 <div class="container mt-3">
     <h1 class="title">Add Project</h1>
     <div asp-validation-summary="All"></div>
-    <form method="POST"> <!--pritend post http method-->
+    <form method="POST"> <!--pretend post http method-->
         <div class="field">
             <label class="label">Name</label>
             <div class="control">
-                <input class="input" type="text" placeholder="Text input" asp-for="Project.Name"> <!-- asp-for??-->
+                <!--asp-for binds to the model property and it generates the HTML based on the type, name and data annotations of the model property.-->
+                <input class="input" type="text" placeholder="Text input" asp-for="Project.Name"> 
             </div>
         </div>
         <div class="field">

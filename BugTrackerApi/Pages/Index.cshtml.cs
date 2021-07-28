@@ -21,15 +21,15 @@ namespace BugTrackerApi.Pages // Get data from projectRepository through browser
             _projectsRepository = projectsRepository;
         }
 
-        public void OnGet() // no return 
+        public void OnGet() // this method will be invoked when the view page is opend
         {
             AllProjects = _projectsRepository.GetAllProjects();
         }
         
-        public void OnPostDelete(Guid id) // no return 
+        public void OnPostDelete(Guid id) 
         {
             _projectsRepository.DeleteProject(id);
-            // what does this mean??
+            // you need to get new all projects after deleting
             AllProjects = _projectsRepository.GetAllProjects();
         }
     }

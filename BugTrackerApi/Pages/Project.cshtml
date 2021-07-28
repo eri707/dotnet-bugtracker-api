@@ -11,7 +11,7 @@
     <p>@Model.Project?.Description</p>
     <div class="is-flex is-justify-content-space-between">
         <h4 class="is-size-4 mt-4">Bugs</h4>
-        <a class="button" href="/AddBug">Add bug</a>  <!--why AddBug not addbug??-->
+        <a class="button" href="/AddBug?projectId=@Model.Project?.Id">Add bug</a>  <!--This is qury parameters-->
     </div>
 
     @foreach (var bug in Model.Bugs)
@@ -20,11 +20,9 @@
             <div class="is-flex is-justify-content-space-between">
                 <a class="is-size-5" @@click="open = ! open">@bug.Title</a>
                 <div  class="is-flex">
-                    <form method="POST"> <!--pretend like Edit http method-->
-                        <input type="submit" class="button" asp-page-handler="Edit" value="Edit" asp-route-id="Bug.Id" />
-                    </form>
+                    <a class="button" href="/bugs/@bug.Id">Edit</a>
                     <form method="POST"> <!--pretend like delete http method-->
-                        <input type="submit" class="button ml-3" asp-page-handler="Delete" value="Delete" asp-route-id="Bug.Id" />
+                        <input type="submit" class="button ml-3" asp-page-handler="Delete" value="Delete" asp-route-id="@bug.Id" />
                     </form>
                 </div>
                 
@@ -54,15 +52,4 @@
             </div>
         </div>
     }
-
-
-    <!--
-    <div x-data="{ count: 0}">
-        <button x-on:click="count++">Increment</button>
-
-        <span x-text="count"></span>
-
-    </div>
-    -->
-
 </div>
