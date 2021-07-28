@@ -14,6 +14,7 @@
         <h4 class="is-size-4 mt-4">Bugs</h4>
         <a class="button is-primary" href="/AddBug?projectId=@Model.Project?.Id">Add bug</a>  <!--This is qury parameters-->
     </div>
+    <h5 class="subtitle">There are @Model.Bugs?.Count() bugs in the database.</h5>
 
     @foreach (var bug in Model.Bugs)
     {
