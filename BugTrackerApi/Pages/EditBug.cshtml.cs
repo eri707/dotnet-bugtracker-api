@@ -15,6 +15,7 @@ namespace BugTrackerApi.Pages
         [BindProperty] // the process that takes values from HTTP requests and maps them to handler method parameters or PageModel properties.
         public UpdateBugViewModel Bug { get; set; }
         public Guid BugId;
+        public Guid ProjectId;
 
         public EditBugModel(IBugsRepository bugsRepository) 
         {
@@ -24,6 +25,7 @@ namespace BugTrackerApi.Pages
         {
             BugId = id;
             var existingBug = _bugsRepository.GetBug(id);
+            ProjectId = existingBug.ProjectId;
             Bug = new UpdateBugViewModel();
             Bug.Title = existingBug.Title;
             Bug.Priority = existingBug.Priority;

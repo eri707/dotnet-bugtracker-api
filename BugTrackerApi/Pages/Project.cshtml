@@ -1,17 +1,18 @@
 ﻿@page "/projects/{id}"
-@model BugTrackerApi.Pages.ProjectModel 
+@model BugTrackerApi.Pages.ProjectModel
+@section ActionButtons
+{
+    <a class="button is-primary" href="/projects/@Model.Project?.Id/edit">Edit project</a>
 
+}
 
 <div class="container">
-    <header class="is-flex is-justify-content-space-between is-align-items-center">
-        <h1 class="title mt-3">@Model.Project?.Name</h1>
-        <a class="button" href="/projects/@Model.Project?.Id/edit">Edit project</a>
-    </header>
+    <h1 class="title mt-3">@Model.Project?.Name</h1>
 
-    <p>@Model.Project?.Description</p>
-    <div class="is-flex is-justify-content-space-between">
+    <p class="subtitle">@Model.Project?.Description</p>
+    <div class="is-flex is-justify-content-space-between mb-4">
         <h4 class="is-size-4 mt-4">Bugs</h4>
-        <a class="button" href="/AddBug?projectId=@Model.Project?.Id">Add bug</a>  <!--This is qury parameters-->
+        <a class="button is-primary" href="/AddBug?projectId=@Model.Project?.Id">Add bug</a>  <!--This is qury parameters-->
     </div>
 
     @foreach (var bug in Model.Bugs)
@@ -19,13 +20,14 @@
         <div class="card p-4 mb-2 is-flex-direction-row" x-data="{ open: false }">
             <div class="is-flex is-justify-content-space-between">
                 <a class="is-size-5" @@click="open = ! open">@bug.Title</a>
-                <div  class="is-flex">
-                    <a class="button" href="/bugs/@bug.Id">Edit</a>
-                    <form method="POST"> <!--pretend like delete http method-->
-                        <input type="submit" class="button ml-3" asp-page-handler="Delete" value="Delete" asp-route-id="@bug.Id" />
+                <div class="is-flex">
+                    <a class="button is-link is-small" href="/bugs/@bug.Id">Edit</a>
+                    <form method="POST">
+                        <!--pretend like delete http method-->
+                        <input type="submit" class="button ml-3 is-small" asp-page-handler="Delete" value="Delete" asp-route-id="@bug.Id" />
                     </form>
                 </div>
-                
+
             </div>
             <div>
                 <div x-show="open" @@click.outside="open = false">

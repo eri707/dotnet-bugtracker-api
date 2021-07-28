@@ -26,30 +26,30 @@
         <div class="field">
             <label class="label">Description</label>
             <div class="control">
-                <textarea class="input" placeholder="Text input" rows="5" asp-for="Bug.Description"></textarea>
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.Description"></textarea>
             </div>
         </div>
         <div class="field">
             <label class="label">Repro Steps</label>
             <div class="control">
-                <textarea class="input" placeholder="Text input" rows="5" asp-for="Bug.ReproSteps"></textarea>
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.ReproSteps"></textarea>
             </div>
         </div>
         <div class="field">
             <label class="label">ActualResults</label>
             <div class="control">
-                <textarea class="input" placeholder="Text input" rows="5" asp-for="Bug.ActualResults"></textarea>
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.ActualResults"></textarea>
             </div>
         </div>
         <div class="field">
             <label class="label">ExpectedResults</label>
             <div class="control">
-                <textarea class="input" placeholder="Text input" rows="5" asp-for="Bug.ExpectedResults"></textarea>
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.ExpectedResults"></textarea>
             </div>
         </div>
         <div class="buttons">
             <input type="submit" class="button is-primary" value="Save" />
-            <a class="button" href="/projects/@Model.BugId">Cancel</a>
+            <a class="button" href="/projects/@Model.ProjectId">Cancel</a>
         </div>
     </form>
 </div>
