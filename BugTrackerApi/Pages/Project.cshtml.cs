@@ -16,16 +16,14 @@ namespace BugTrackerApi.Pages
         public Project Project;
         public IEnumerable<Bug> Bugs;
 
-        // This runs first
         public ProjectModel(IProjectsRepository projectsRepository, IBugsRepository bugsRepository)
         {
             _projectsRepository = projectsRepository;
             _bugsRepository = bugsRepository;
         }
-        // This runs second
         public void OnGet(Guid id) // get one project
         {
-            Project = _projectsRepository.GetProject(id); // these ids are same??
+            Project = _projectsRepository.GetProject(id); 
             Bugs = _bugsRepository.GetAllBugs(id);
         }
         public void OnPostDelete(Guid id)

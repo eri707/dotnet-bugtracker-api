@@ -20,7 +20,7 @@ namespace BugTrackerApi.Pages
         {
             _projectsRepository = projectsRepository;
         }
-        public void OnGet(Guid id) // get existing project ??
+        public void OnGet(Guid id) 
         {
             ProjectId = id;
             var existingProject = _projectsRepository.GetProject(id);

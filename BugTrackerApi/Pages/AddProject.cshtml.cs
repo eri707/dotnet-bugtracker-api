@@ -13,20 +13,20 @@ namespace BugTrackerApi.Pages
     {
         private IProjectsRepository _projectsRepository;
         [BindProperty] // the process that takes values from HTTP requests and maps them to handler method parameters or PageModel properties
-        public AddProjectViewModel Project { get; set; } // ??
+        public AddProjectViewModel Project { get; set; } 
 
         public AddProjectModel(IProjectsRepository projectsRepository) 
         {
             _projectsRepository = projectsRepository;
         }
         
-        public ActionResult OnPost() // where should it be used??
+        public ActionResult OnPost() 
         { 
             if (!ModelState.IsValid) // if the model which is recieved from the user is valid 
             {
                 return Page(); //show view page
             }
-            _projectsRepository.AddProject(Project); // what is this Project??
+            _projectsRepository.AddProject(Project); 
             return RedirectToPage("/Index"); // the page will be shown up after adding project
         }
     }

@@ -8,13 +8,13 @@ using BugTrackerApi.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace BugTrackerApi.Pages // Get data from projectRepository through browser
+namespace BugTrackerApi.Pages 
 {
-    public class IndexModel : PageModel //is the page model for the Razor view
+    public class IndexModel : PageModel 
     {
         private IProjectsRepository _projectsRepository;
         // this field must be public in ordet to use it in Index.cshtml
-        public IEnumerable<Project> AllProjects; // public variable convention capital case
+        public IEnumerable<Project> AllProjects; // public variable convention is capital case
       
         public IndexModel(IProjectsRepository projectsRepository) 
         {

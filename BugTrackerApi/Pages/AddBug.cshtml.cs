@@ -30,7 +30,7 @@ namespace BugTrackerApi.Pages
             _bugsRepository.AddBug(Bug); 
             return RedirectToPage("./Project", new { id = Bug.ProjectId.ToString() }); 
         }
-        public void OnGet([FromQuery]Guid projectId) // retrieve query parameters 
+        public void OnGet([FromQuery]Guid projectId) // retrieve query parameters from URL(This is model binder)
         {
             ProjectId = projectId;
         }
