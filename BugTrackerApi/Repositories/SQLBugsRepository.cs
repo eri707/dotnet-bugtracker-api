@@ -17,7 +17,7 @@ namespace BugTrackerApi.Repositories
         public SQLBugsRepository(IConfiguration configuration)
         {
             _config = configuration;
-            _connString = configuration.GetConnectionString("Local");
+            _connString = _config.GetConnectionString("Local");
         }
         public Bug AddBug(AddBugViewModel model)
         {
@@ -37,7 +37,6 @@ namespace BugTrackerApi.Repositories
             {
                 var result = db.Execute("DELETE FROM Bugs WHERE Id = @Id", new { Id = id });
             }
-                
         }
 
         public IEnumerable<Bug> GetAllBugs(Guid projectId)
@@ -71,7 +70,7 @@ namespace BugTrackerApi.Repositories
                             ReproSteps = CASE WHEN @ReproSteps IS NULL THEN ReproSteps ELSE @ReproSteps END, 
                             ActualResults = CASE WHEN @ActualResults IS NULL THEN ActualResults ELSE @ActualResults END, 
                             ExpectedResults = CASE WHEN @ExpectedResults IS NULL THEN ExpectedResults ELSE @ExpectedResults END 
-                        WHERE Id = '{ id }'", model); // model??
+                        WHERE Id = '{ id }'", model); 
                 if (result > 0)
                 {
                     return GetBug(id);

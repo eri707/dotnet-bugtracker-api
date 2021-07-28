@@ -1,0 +1,55 @@
+﻿@page "/bugs/{id}"
+@model BugTrackerApi.Pages.EditBugModel
+
+
+<div class="container mt-3">
+    <h1 class="title">Edit Bug</h1>
+    <!--This is a tag helper-->
+    <div asp-validation-summary="All"></div>
+    <form method="POST">
+        <input type="hidden" asp-for="@Model.BugId" value="@Model.BugId" />
+        <div class="field">
+            <label class="label">Title</label>
+            <div class="control">
+                <input class="input" type="text" placeholder="Text input" asp-for="Bug.Title">
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Priority (Choose priority)</label>
+            <div class="control">
+                <label> <input name="priority" type="radio" value="Critical" asp-for="Bug.Priority" /> Critical</label>
+                <label><input class="ml-5" name="priority" type="radio" value="High" asp-for="Bug.Priority" /> High</label>
+                <label><input class="ml-5" name="priority" type="radio" value="Medium" asp-for="Bug.Priority" /> Medium</label>
+                <label><input class="ml-5" name="priority" type="radio" value="Low" asp-for="Bug.Priority" /> Low</label>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Description</label>
+            <div class="control">
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.Description"></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">Repro Steps</label>
+            <div class="control">
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.ReproSteps"></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">ActualResults</label>
+            <div class="control">
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.ActualResults"></textarea>
+            </div>
+        </div>
+        <div class="field">
+            <label class="label">ExpectedResults</label>
+            <div class="control">
+                <textarea style="height:8rem" class="input" placeholder="Text input" rows="5" asp-for="Bug.ExpectedResults"></textarea>
+            </div>
+        </div>
+        <div class="buttons">
+            <input type="submit" class="button is-primary" value="Save" />
+            <a class="button" href="/projects/@Model.ProjectId">Cancel</a>
+        </div>
+    </form>
+</div>

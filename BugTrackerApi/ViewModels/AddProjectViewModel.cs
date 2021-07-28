@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace BugTrackerApi.Models
 {
-    // this model from customers are send to API (Guid and DateTime are not ne)
-    public class AddProjectViewModel
+    public class AddProjectViewModel // this model is for user input when adding 
     {
         [Required(AllowEmptyStrings = false), MaxLength(255)]
         public string Name { get; set; }

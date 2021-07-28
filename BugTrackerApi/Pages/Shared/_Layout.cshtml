@@ -9,6 +9,32 @@
 </head>
 <body> <!--This page is a container for all other razor pages. if you wanna share something to every razor page, you can add here-->
     <div>
+        <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+            <div class="container">
+                <div class="navbar-brand">
+                    <a class="navbar-item is-size-6 is-uppercase has-text-weight-bold" href="/">
+                        BugTracker
+                    </a>
+                </div>
+
+                <div id="navbarBasicExample" class="navbar-menu">
+                    <div class="navbar-start">
+                        <a class="navbar-item" href="/">
+                            Projects
+                        </a>
+                    </div>
+
+                    <div class="navbar-end">
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                @RenderSection("ActionButtons", false)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </nav>
         @RenderBody()
     </div>
 </body>

@@ -20,7 +20,7 @@
     "BugTrackerApi": {
       "commandName": "Project",
       "commandLineArgs": "abc 123",
-      "launchBrowser": true,
+      "launchBrowser": false,
       "launchUrl": "",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

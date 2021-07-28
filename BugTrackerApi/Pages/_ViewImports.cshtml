@@ -1,0 +1,8 @@
+﻿<!-- to provide a mechanism to make directives available to Razor pages globally so that you don't have to add them to pages individually.
+ The default _ViewImports.cshtml file typically contains three directives: a at using directive specifying the default namespace of your application,
+ a at namepace directive and an at addTagHelper directive making the Microsoft.AspNetCore.Mvc.TagHelpers library contents available to your pages:-->
+@using BugTrackerApi
+@namespace BugTrackerApi.Pages
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+<!--Tag Helpers enable server-side code to participate in creating and rendering HTML elements in Razor files. -->
